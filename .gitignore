@@ -1,0 +1,38 @@
+# ================================
+# Entornos virtuales
+# ================================
+venv/
+.venv/
+env/
+ENV/
+
+# ================================
+# Datos locales / administrativos
+# ================================
+data/
+*.xml
+*.csv
+*.xlsx
+
+# ================================
+# Credenciales y secretos
+# ================================
+credentials.json
+token.json
+*.key
+*.env
+
+# ================================
+# Cache y archivos temporales
+# ================================
+__pycache__/
+*.py[cod]
+*.log
+
+# ================================
+# IDEs y SO
+# ================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
