@@ -13,6 +13,7 @@ data/
 *.xml
 *.csv
 *.xlsx
+*.db
 
 # ================================
 # Credenciales y secretos
@@ -37,8 +38,3 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# ================================
-# OAuth y credenciales
-# ================================
-credentials.json
-token.json
