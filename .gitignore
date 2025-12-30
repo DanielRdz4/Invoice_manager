@@ -14,14 +14,17 @@ data/
 *.csv
 *.xlsx
 *.db
+*.json
 
 # ================================
 # Credenciales y secretos
 # ================================
 credentials.json
 token.json
+token*
 *.key
 *.env
+
 
 # ================================
 # Cache y archivos temporales
