@@ -2,6 +2,7 @@ from src.oauth import get_gmail_credentials
 from src.gmail_api import get_gmail_service
 from src.core.config import fetch_user_config
 from src.gmail_api import download_xml_atts
+from src.file_manager import process_xml_files
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
 
     user_config = fetch_user_config()
     download_xml_atts(service, user_config)
-    
+    process_xml_files()
 
 if __name__ == "__main__":
     main()
