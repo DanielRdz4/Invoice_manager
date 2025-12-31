@@ -14,7 +14,6 @@ def main():
     print("Correo autenticado:", profile["emailAddress"])
 
     user_config = fetch_user_config()
-    print(user_config)
 
 if __name__ == "__main__":
     main()

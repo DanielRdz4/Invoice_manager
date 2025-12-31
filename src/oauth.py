@@ -1,13 +1,10 @@
-from pathlib import Path
-import os
-
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+from src.core.paths import GMAIL_CLIENT_SECRET, GMAIL_TOKEN
 
-TOKEN_PATH = Path.home() / ".secrets" / "gmail_token.json"
+SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
 
 def get_gmail_credentials() -> Credentials:
@@ -16,31 +13,29 @@ def get_gmail_credentials() -> Credentials:
     creds = None
 
     # Cargar token existente
-    if TOKEN_PATH.exists():
+    if GMAIL_TOKEN.exists():
         creds = Credentials.from_authorized_user_file(
-            TOKEN_PATH, SCOPES
+            GMAIL_TOKEN, SCOPES
         )
 
-    # Si no es válido, refrescar o pedir login
+    # Refrescar o pedir login
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-
-            if not credentials_path:
-                raise RuntimeError(
-                    "GOOGLE_APPLICATION_CREDENTIALS no está definida"
+            if not GMAIL_CLIENT_SECRET.exists():
+                raise FileNotFoundError(
+                    f"No existe el archivo OAuth: {GMAIL_CLIENT_SECRET}"
                 )
 
             flow = InstalledAppFlow.from_client_secrets_file(
-                credentials_path,
+                GMAIL_CLIENT_SECRET,
                 SCOPES
             )
             creds = flow.run_local_server(port=0)
 
         # Guardar token
-        TOKEN_PATH.parent.mkdir(parents=True, exist_ok=True)
-        TOKEN_PATH.write_text(creds.to_json())
+        GMAIL_TOKEN.parent.mkdir(parents=True, exist_ok=True)
+        GMAIL_TOKEN.write_text(creds.to_json())
 
     return creds
