@@ -32,8 +32,10 @@ def process_xml_files():
         new_path = PROCESSED_DATA_DIR / new_filename
 
         if new_path.exists():
-            print(f"[DUPLICADO] {new_filename} ya existe, saltando")
+            print(f"[DUPLICADO] {new_filename} ya existe, eliminando copia")
+            xml_path.unlink()
             continue
 
         xml_path.rename(new_path)
         print(f"[OK] {xml_path.name} → {new_filename}")
+

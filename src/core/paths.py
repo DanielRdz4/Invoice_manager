@@ -9,6 +9,10 @@ DATA_DIR = SRC_DIR / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 
+#Directorio para .db
+DB_DIR = DATA_DIR / "db"
+DB_PATH = DB_DIR / "invoices.db"
+
 # Directorio home del usuario (Windows / Linux / macOS)
 HOME_DIR = Path.home()
 
