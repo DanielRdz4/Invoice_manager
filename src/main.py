@@ -1,6 +1,7 @@
 from src.oauth import get_gmail_credentials
 from src.gmail_api import get_gmail_service
 from src.core.config import fetch_user_config
+from src.gmail_api import download_xml_atts
 
 
 def main():
@@ -14,6 +15,8 @@ def main():
     print("Correo autenticado:", profile["emailAddress"])
 
     user_config = fetch_user_config()
+    download_xml_atts(service, user_config)
+    
 
 if __name__ == "__main__":
     main()

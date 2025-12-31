@@ -1,7 +1,7 @@
 #Manages user's configuration
 
 import json
-from src.core.paths import DATA_DIR
+from src.core.paths import DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR
 USER_CONFIG_PATH = DATA_DIR / "user_config.json"
 
 def get_user_config():
@@ -25,26 +25,25 @@ def load_user_config():
             return json.load(f)
         
     except (json.JSONDecodeError, FileNotFoundError):
-        print("user_config.json can't be read. Recreating it")
-        USER_CONFIG_PATH.unlink()
-        return fetch_user_config()
+        print("user_config.json can't be read.")
+        return None
 
 
 def fetch_user_config():
     """Looks for user configuration, creates it if it doesn´t exist"""
 
     DATA_DIR.mkdir(parents=True, exist_ok= True)
+    RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    if not USER_CONFIG_PATH.exists():
-       
+    config = load_user_config()
+
+    if config is None:
        user_config = get_user_config()
        with USER_CONFIG_PATH.open("w", encoding="utf-8") as f:
             json.dump(user_config, f, indent= 4)
-    
-
-    
-    return load_user_config()
-    
+            return user_config
+    return config
 
     
 

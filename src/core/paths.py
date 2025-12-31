@@ -5,6 +5,10 @@ SRC_DIR = UTILS_DIR.parent
 ROOT_DIR = SRC_DIR.parent
 DATA_DIR = SRC_DIR / "data"
 
+#Directorios de xml's 
+RAW_DATA_DIR = DATA_DIR / "raw"
+PROCESSED_DATA_DIR = DATA_DIR / "processed"
+
 # Directorio home del usuario (Windows / Linux / macOS)
 HOME_DIR = Path.home()
 
