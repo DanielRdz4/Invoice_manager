@@ -45,8 +45,7 @@ def process_xml_files():
         new_path = PROCESSED_DATA_DIR / new_filename
 
         if new_path.exists():
-            print(f"[DUPLICADO] {new_filename} ya existe, eliminando copia")
-            xml_path.unlink()
+            print(f"[DUPLICADO] {new_filename} ya existe, continuando")
             continue
 
         create_json(cfdi_data, new_path)

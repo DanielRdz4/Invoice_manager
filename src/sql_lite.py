@@ -32,10 +32,6 @@ def save_to_db():
     for json_path in PROCESSED_DATA_DIR.glob("*.json"):
 
         json_data = load_json(json_path)
-
-        for k, v in json_data.items():
-            print(k, type(v), v)
-        
         cursor.execute("""
         INSERT OR IGNORE INTO invoices (folio, fecha, emisor, receptor, tipo, total, uuid)
         VALUES (:folio, :fecha, :emisor, :receptor, :tipo, :total, :uuid)
@@ -61,6 +57,9 @@ def db_to_xlsx():
     ws.append(column_names)
     for row in rows:
         ws.append(row)
+        
+    cursor.execute("SELECT COUNT(*) FROM invoices")
+    print("Registros en invoices:", cursor.fetchone()[0])
 
     wb.save(XLSX_PATH)
 
