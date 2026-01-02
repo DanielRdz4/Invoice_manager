@@ -1,7 +1,7 @@
 #Manages user's configuration
 
 import json
-from src.core.paths import DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, DB_DIR
+from src.core.paths import DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, DB_DIR, XLSX_DIR
 USER_CONFIG_PATH = DATA_DIR / "user_config.json"
 
 def get_user_config():
@@ -36,7 +36,7 @@ def fetch_user_config():
     RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
     DB_DIR.mkdir(parents=True, exist_ok=True)
-    
+    XLSX_DIR.mkdir(parents=True, exist_ok=True)
 
     config = load_user_config()
 

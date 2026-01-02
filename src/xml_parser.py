@@ -46,13 +46,13 @@ def parse_cfdi_xml(xml_path: Path) -> dict:
     reciever_name = reciever.attrib.get("Nombre") if not None else None
 
     return {
-        "uuid": uuid,
         "folio": folio,
-        "date": date,
-        "type": type,
+        "fecha": date,
+        "emisor": transmitter_name,
+        "receptor": reciever_name,
+        "tipo": type,
         "total": total,
-        "transmitter": transmitter_name,
-        "reciever": reciever_name,
+        "uuid": uuid,
     }
 
 

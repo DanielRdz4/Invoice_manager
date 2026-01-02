@@ -3,7 +3,7 @@ from src.gmail_api import get_gmail_service
 from src.core.config import fetch_user_config
 from src.gmail_api import download_xml_atts
 from src.file_manager import process_xml_files
-from src.sql_lite import save_to_db
+from src.sql_lite import save_to_db, db_to_xlsx
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     download_xml_atts(service, user_config)
     process_xml_files()
     save_to_db()
-
+    db_to_xlsx()
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@
 from pathlib import Path
 from src.xml_parser import parse_cfdi_xml, CFDIParseError
 from src.core.paths import RAW_DATA_DIR, PROCESSED_DATA_DIR
+import json
 import re
 
 def build_filename(cfdi_data: dict) -> str:
@@ -12,8 +13,20 @@ def build_filename(cfdi_data: dict) -> str:
     date_str = cfdi_data.get("date") or "NA"
     safe_date = date_str.split("T")[0]  # solo la fecha
 
-    filename = f"{uuid}-{folio}-{safe_date}.xml"
+    filename = f"{uuid}-{folio}-{safe_date}.json"
     return filename
+
+def create_json(cfdi_data: dict, path):
+    """creates .json file with cfdi information"""
+
+    with path.open("w",encoding = "UTF-8") as f:
+        json.dump(cfdi_data, f,)
+
+def load_json(path: Path)-> dict:
+    """Loads .json file information"""
+    
+    with path.open("r",encoding="UTF-8") as f:
+        return json.load(f)
 
 def process_xml_files():
     """Reads all xml's in raw data directory, obtains info, renames
@@ -36,6 +49,6 @@ def process_xml_files():
             xml_path.unlink()
             continue
 
-        xml_path.rename(new_path)
+        create_json(cfdi_data, new_path)
         print(f"[OK] {xml_path.name} → {new_filename}")
 

@@ -13,6 +13,10 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 DB_DIR = DATA_DIR / "db"
 DB_PATH = DB_DIR / "invoices.db"
 
+#Directorio de .xlsx
+XLSX_DIR = DATA_DIR / "xlsx"
+XLSX_PATH = XLSX_DIR / "invoices.xlsx"
+
 # Directorio home del usuario (Windows / Linux / macOS)
 HOME_DIR = Path.home()
 
