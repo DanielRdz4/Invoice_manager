@@ -1,8 +1,8 @@
 #Manages user's configuration
-
 import json
-from src.core.paths import DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, DB_DIR, XLSX_DIR
-USER_CONFIG_PATH = DATA_DIR / "user_config.json"
+from src.utils.json_management import load_json, create_json
+from src.core.paths import DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, DB_DIR, XLSX_DIR, USER_CONFIG_PATH
+
 
 def get_user_config():
     """Obtains user preferences for configurations"""
@@ -21,16 +21,14 @@ def get_user_config():
 def load_user_config():
     """Reads existing user's configuration"""
     try:
-        with USER_CONFIG_PATH.open("r", encoding= "utf-8") as f:
-            return json.load(f)
-        
+        return load_json(USER_CONFIG_PATH)
+    
     except (json.JSONDecodeError, FileNotFoundError):
         print("user_config.json can't be read.")
         return None
 
-
-def fetch_user_config():
-    """Looks for user configuration, creates it if it doesn´t exist"""
+def confirm_structure():
+    """Makes sure that necessary directories exist"""
 
     DATA_DIR.mkdir(parents=True, exist_ok= True)
     RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -38,13 +36,18 @@ def fetch_user_config():
     DB_DIR.mkdir(parents=True, exist_ok=True)
     XLSX_DIR.mkdir(parents=True, exist_ok=True)
 
-    config = load_user_config()
 
+def fetch_user_config():
+    """Looks for user configuration, creates it if it doesn´t exist"""
+    
+    confirm_structure()
+    config = load_user_config()
+    
     if config is None:
        user_config = get_user_config()
-       with USER_CONFIG_PATH.open("w", encoding="utf-8") as f:
-            json.dump(user_config, f, indent= 4)
-            return user_config
+       create_json(user_config, USER_CONFIG_PATH)
+       return user_config
+    
     return config
 
     

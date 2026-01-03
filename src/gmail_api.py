@@ -1,8 +1,8 @@
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
-from src.core.config import load_user_config
-from src.core.paths import RAW_DATA_DIR, PROCESSED_DATA_DIR
+from src.core.paths import RAW_DATA_DIR
 import base64
+from pathlib import Path
 
 def get_gmail_service(credentials: Credentials):
     """Crea el servicio Gmail API"""
@@ -10,6 +10,7 @@ def get_gmail_service(credentials: Credentials):
 
 def build_query(user_config):
     """Build's query with user's configuration"""
+
     query = (
         f"from:{user_config['sender_email']} "
         "has:attachment "
@@ -63,8 +64,9 @@ def download_xml_atts(service, user_config):
 
             if file_path.exists():
                 print(f"Ya existe: {filename}")
+                continue
             
-            with open(file_path,"wb") as f:
+            with file_path.open("wb") as f:
                 f.write(file_data)
             
             print(f"descargado: {filename}")

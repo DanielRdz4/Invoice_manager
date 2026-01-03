@@ -3,7 +3,7 @@ from pathlib import Path
 from src.core.paths import DB_PATH, PROCESSED_DATA_DIR, XLSX_PATH
 from src.xml_parser import parse_cfdi_xml
 from openpyxl import Workbook
-from src.file_manager import load_json
+from src.xml_to_json import load_json
 DB_PATH = DB_PATH
 
 def save_to_db():
@@ -57,9 +57,6 @@ def db_to_xlsx():
     ws.append(column_names)
     for row in rows:
         ws.append(row)
-        
-    cursor.execute("SELECT COUNT(*) FROM invoices")
-    print("Registros en invoices:", cursor.fetchone()[0])
 
     wb.save(XLSX_PATH)
 

@@ -5,6 +5,9 @@ SRC_DIR = UTILS_DIR.parent
 ROOT_DIR = SRC_DIR.parent
 DATA_DIR = SRC_DIR / "data"
 
+#Config path
+USER_CONFIG_PATH = DATA_DIR / "user_config.json"
+
 #Directorios de xml's 
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
