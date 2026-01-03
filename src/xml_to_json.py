@@ -10,7 +10,7 @@ def build_json_filename(cfdi_data: dict) -> str:
     uuid = cfdi_data["uuid"]
     folio = cfdi_data.get("folio") or "NA"
     folio = re.sub(r"[^A-Za-z0-9_-]", "", folio)
-    date_str = cfdi_data.get("date") or "NA"
+    date_str = cfdi_data.get("fecha") or "NA"
     safe_date = date_str.split("T")[0]  # solo la fecha
 
     filename = f"{uuid}-{folio}-{safe_date}.json"

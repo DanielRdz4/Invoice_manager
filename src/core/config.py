@@ -11,12 +11,10 @@ def get_user_config():
 
         sender_email = input("Sender's e-mail: ").strip()
         print(f"Sender's email: {sender_email}")
-        confirmation = input("Is the sender's email correct (Y/N): ").strip().upper()
 
-        if confirmation == "Y":
-            return {
-                "sender_email": sender_email
-            }
+        return {
+            "sender_email": sender_email
+        }
         
 def load_user_config():
     """Reads existing user's configuration"""
