@@ -1,6 +1,6 @@
 #Manages xml files
 from pathlib import Path
-from src.xml_parser import parse_cfdi_xml, CFDIParseError
+from src.domain.cfdi.xml_parser import parse_cfdi_xml, CFDIParseError
 from src.core.paths import RAW_DATA_DIR, PROCESSED_DATA_DIR
 from src.utils.json_management import create_json, load_json
 import re
