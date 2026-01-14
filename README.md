@@ -4,6 +4,22 @@
 
 ---
 
+## Disclaimer ⚠️
+
+Este proyecto se proporciona **"tal cual" (as-is)** y **no se garantiza mantenimiento, soporte ni actualizaciones futuras**. El autor no asume compromiso alguno de corregir errores, adaptar el código a cambios en APIs externas (como Gmail o Google Cloud), ni de mantener compatibilidad con nuevas versiones de Python o dependencias.
+
+El **uso correcto, seguro y legal del proyecto es responsabilidad exclusiva del usuario**, incluyendo, pero no limitándose a:
+
+- La correcta configuración, protección y rotación de credenciales OAuth.
+- El cumplimiento de los términos de servicio de Google, Gmail API y cualquier otro servicio externo utilizado.
+- El cumplimiento de la legislación fiscal, de protección de datos y privacidad aplicable (por ejemplo, manejo de CFDI y datos personales).
+
+El autor **no será responsable por pérdidas de datos, accesos no autorizados, uso indebido de información, sanciones legales o fiscales**, ni por cualquier daño directo o indirecto derivado del uso de este software.
+
+Al utilizar, modificar o distribuir este proyecto, aceptas hacerlo **bajo tu propio riesgo**.
+
+---
+
 ## Características ✨
 - Autenticación con Gmail (OAuth)
 - Descarga y parseo de archivos XML de facturas
@@ -78,21 +94,7 @@ Esto hará:
 - `src/core/` — configuración y rutas
 - `src/data/` — archivos generados durante ejecución
 
----
-
-## Disclaimer ⚠️
-
-Este proyecto se proporciona **“tal cual” (as-is)** y **no se garantiza mantenimiento, soporte ni actualizaciones futuras**. El autor no asume compromiso alguno de corregir errores, adaptar el código a cambios en APIs externas (como Gmail o Google Cloud), ni de mantener compatibilidad con nuevas versiones de Python o dependencias.
-
-El **uso correcto, seguro y legal del proyecto es responsabilidad exclusiva del usuario**, incluyendo, pero no limitándose a:
-
-- La correcta configuración, protección y rotación de credenciales OAuth.
-- El cumplimiento de los términos de servicio de Google, Gmail API y cualquier otro servicio externo utilizado.
-- El cumplimiento de la legislación fiscal, de protección de datos y privacidad aplicable (por ejemplo, manejo de CFDI y datos personales).
-
-El autor **no será responsable por pérdidas de datos, accesos no autorizados, uso indebido de información, sanciones legales o fiscales**, ni por cualquier daño directo o indirecto derivado del uso de este software.
-
-Al utilizar, modificar o distribuir este proyecto, aceptas hacerlo **bajo tu propio riesgo**.
 
 ---
+
 
