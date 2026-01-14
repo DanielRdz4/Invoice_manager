@@ -8,6 +8,24 @@ def get_gmail_service(credentials: Credentials):
     """Crea el servicio Gmail API"""
     return build("gmail", "v1", credentials=credentials)
 
+def show_active_user(service):
+    profile = service.users().getProfile(userId="me").execute()
+    print("Correo autenticado:", profile["emailAddress"])
+
+def save_attachments(attachments):
+    for att in attachments:
+        file_path = RAW_DATA_DIR / att["filename"]
+
+        if file_path.exists():
+            print(f"Ya existe: {att['filename']}")
+            continue
+
+        with file_path.open("wb") as f:
+            f.write(att["data"])
+
+        print(f"Descargado: {att['filename']}")
+
+
 def build_query(user_config):
     """Build's query with user's configuration"""
 
@@ -19,8 +37,23 @@ def build_query(user_config):
 
     return query
 
-def download_xml_atts(service, user_config):
-    """Downloads xml's that meets query criteria"""
+def download_attachment(service, msg_id, attachment_id, filename):
+    attachment = service.users().messages().attachments().get(
+        userId="me",
+        messageId=msg_id,
+        id=attachment_id
+    ).execute()
+
+    data = base64.urlsafe_b64decode(attachment["data"].encode("utf-8"))
+
+    return {
+        "filename": filename,
+        "data": data
+    }
+
+
+def search_messages(service, user_config):
+    """Looks for messages that match the query"""
 
     results = service.users().messages().list(
         userId="me",
@@ -30,43 +63,39 @@ def download_xml_atts(service, user_config):
     messages = results.get("messages", [])
     print(f"Correos encontrados: {len(messages)}")
 
-    for msg in messages:
-        msg_id = msg["id"]
+    return [msg['id'] for msg in messages]
 
-        message = service.users().messages().get(
-            userId="me",
-            id=msg_id
-        ).execute()
+def extract_xml_attachments(service, msg_id):
+    message = service.users().messages().get(
+        userId="me",
+        id=msg_id
+    ).execute()
 
-        for part in message["payload"].get("parts", []):
-            filename = part.get("filename", "")
+    attachments = []
 
-            if not filename.lower().endswith(".xml"):
-                continue
+    for part in message["payload"].get("parts", []):
+        filename = part.get("filename", "")
 
-            body = part.get("body", {})
-            attachment_id = body.get("attachmentId")
+        if not filename.lower().endswith(".xml"):
+            continue
 
-            if not attachment_id:
-                continue
+        attachment_id = part.get("body", {}).get("attachmentId")
+        if not attachment_id:
+            continue
 
-            attachment = service.users().messages().attachments().get(
-                userId="me",
-                messageId = msg_id,
-                id = attachment_id
-            ).execute()
+        attachments.append(
+            download_attachment(service, msg_id, attachment_id, filename)
+        )
 
-            file_data = base64.urlsafe_b64decode(
-                attachment["data"].encode("UTF-8")
-            )
+    return attachments
 
-            file_path = RAW_DATA_DIR / filename
 
-            if file_path.exists():
-                print(f"Ya existe: {filename}")
-                continue
-            
-            with file_path.open("wb") as f:
-                f.write(file_data)
-            
-            print(f"descargado: {filename}")
+def get_xml_atts(service, user_config):
+    """Downloads XML attachments matching user config"""
+
+    messages = search_messages(service, user_config)
+    print(f"Correos encontrados: {len(messages)}")
+
+    for msg_id in messages:
+        attachments = extract_xml_attachments(service, msg_id)
+        save_attachments(attachments)
