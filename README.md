@@ -1,10 +1,10 @@
-# Invoice Manager ⚙️📄
+# Invoice Manager
 
 **Invoice Manager** es una herramienta para automatizar la descarga, normalización y almacenamiento de CFDI desde Gmail, con persistencia en SQLite y exportación a Excel. 
 
 ---
 
-## Disclaimer ⚠️
+## Disclaimer
 
 Este proyecto se proporciona **"tal cual" (as-is)** y **no se garantiza mantenimiento, soporte ni actualizaciones futuras**. El autor no asume compromiso alguno de corregir errores, adaptar el código a cambios en APIs externas (como Gmail o Google Cloud), ni de mantener compatibilidad con nuevas versiones de Python o dependencias.
 
@@ -20,18 +20,18 @@ Al utilizar, modificar o distribuir este proyecto, aceptas hacerlo **bajo tu pro
 
 ---
 
-## Características ✨
+## Características
 - Autenticación con Gmail (OAuth)
 - Descarga y parseo de archivos XML de facturas
 - Conversión XML → JSON
 - Persistencia en base de datos (SQLite por defecto)
 - Exportación de reportes en Excel (.xlsx)
 
-## Requisitos 🔧
+## Requisitos
 - Python 3.10+
 - Dependencias listadas en `requirements.txt`
 
-## Instalación 🚀
+## Instalación
 ```bash
 # clonar el repositorio
 git clone <https://github.com/DanielRdz4/Invoice_manager>
@@ -45,7 +45,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Configuración 🔐
+## Configuración
 
 1. Credenciales de Google
    - Habilita la API de Gmail en tu proyecto en Google Cloud Console (APIs & Services → Library → Gmail API).
@@ -67,13 +67,13 @@ pip install -r requirements.txt
      ```
    - `sender_email` se usa para construir consultas en Gmail y filtrar mensajes.
 
-### Pasos rápidos de verificación ✅
+### Pasos rápidos de verificación
 - Verificar que `.gitignore` incluye `credentials.json`, `gmail_token.json`, `.secrets/`, `raw_data/` y `*.db`.
 - Ejecutar el pipeline y confirmar que se abre el navegador para autorizar y que `~/.secrets/gmail_token.json` se genera correctamente.
 - Si compartes el repo públicamente: revoca/rota credenciales anteriores en Google Cloud y no subir nunca los JSON al repo.
 
 
-## Uso ▶️
+## Uso
 Ejecuta el pipeline principal:
 
 python -m src.app.main
@@ -85,7 +85,7 @@ Esto hará:
 - Guardar facturas en la base de datos
 - Exportar un archivo `.xlsx` con el reporte
 
-## Estructura del proyecto 🔍
+## Estructura del proyecto
 - `src/app/` — entrypoint y pipeline
 - `src/integrations/gmail/` — OAuth y cliente Gmail
 - `src/domain/cfdi/` — parser XML → JSON
